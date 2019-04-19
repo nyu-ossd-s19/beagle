@@ -25,11 +25,13 @@ class WinEVTXTransformer(Transformer):
 
         if event_id == 4688:
             return self.process_creation(event)
+	elif event_id == 4704:
+	    return self.user_right_assigned(event)
 
         return None
 
     def process_creation(self, event: dict) -> Tuple[Process, File, Process]:
-        """Transformers a process creation (event ID 4688) into a set of nodes.
+        """Transforms a process creation event (event ID 4688) into a set of nodes.
 
         https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventID=4688
 
@@ -79,3 +81,25 @@ class WinEVTXTransformer(Transformer):
         # been created before being put into seen_procs
 
         return (child, child_file, parent)
+
+    def user_right_assigned(self, event: dict) -> 
+    """Transforms a user rights assigned event (event ID 4704) into a set of nodes.
+	https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventID=4704
+
+	Parameters
+	----------
+	event : dict
+	    [description]
+	
+	Returns
+	-------
+	*UNKNOWN*
+    """
+
+	# probably need to pull target id
+	target_id = event["data_name_targetsid"]
+
+	# also probably need privilagelist
+	privilage_list = event["data_name_privilagelist"]
+
+	#not sure what to do after this	
