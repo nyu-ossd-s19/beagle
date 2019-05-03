@@ -18,8 +18,9 @@ class User(Node):
     __color__ = "F79805"  # orange
 
     user_name: Optional[str]
-
     assigned_rights: DefaultDict["User", Assign_Rights]
+    
+    key_fields: List[str] = ["user_name", "assigned_rights"]
 
     def __init__(
         self,
